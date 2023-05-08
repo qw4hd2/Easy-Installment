@@ -17,7 +17,7 @@ Swal.fire({
         <hr>
         <div class="card-body">
 
-            <form action="/stockAddDB" method="POST">
+            <form action="/stockAddDB" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group ">
                     <div class="row">
@@ -31,6 +31,15 @@ Swal.fire({
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="image">Image:</label>
+                            <input type="file" class="form-control" id="image" name="image" required accept=".jpg,.jpeg,.png,.gif,.svg">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group ">
                     <div class="row">
                         <div class="col">

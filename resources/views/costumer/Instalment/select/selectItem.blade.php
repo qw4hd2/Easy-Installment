@@ -27,9 +27,10 @@ Swal.fire({
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Description</th>
+                                    <th>Image</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
-                                    <th>Action</th>
+                                    <th>status</th>
                                 </thead>
                                 <tbody>
                                     @foreach($products as $product)
@@ -38,6 +39,7 @@ Swal.fire({
                                         <td>{{$product->p_name}}</td>
                                         <td>{{$product->p_category}}</td>
                                         <td>{{$product->p_description}}</td>
+                                        <td><img src="{{$product->p_image}}" alt="" class="img img-fluid" data-toggle="modal" data-target="#productImageModal{{$product->p_id}}"></td>
                                         <td>{{$product->p_quantity}}</td>
                                         <td>₱ {{$product->p_mprice}}</td>
                                         <td><a href="{{url('/requestFormCostumer',$product->p_id)}}" >Select</a>  </td>
@@ -48,7 +50,20 @@ Swal.fire({
                         </div>
                     </div>
                 </div>
-
+                @foreach($products as $product)
+                    <div class="modal fade" id="productImageModal{{$product->p_id}}" tabindex="-1" role="dialog" aria-labelledby="productImageModalLabel{{$product->p_id}}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <img src="{{$product->p_image}}" alt="" class="img img-fluid">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
 
                 <div class="footer">
                     <div id="pagination">

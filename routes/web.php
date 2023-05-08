@@ -29,7 +29,7 @@ route::get('/home',[AdminDashboardController::class,'index'])->middleware('admin
 route::get('/stock',[AdminDashboardController::class,'stock'])->middleware('admin.session')->name('admin.pages.product.stock');
 Route::get('/stockEdit/{id}', [AdminDashboardController::class,'stockEdit'])->middleware('admin.session')->name('stockEdit');
 route::get('/stockAdd',[AdminDashboardController::class,'stockAdd'])->middleware('admin.session');
-route::get('/stockManage/{id}',[AdminDashboardController::class,'stockManage'])->middleware('admin.session');
+route::get('/stockManage',[AdminDashboardController::class,'stockManage'])->middleware('admin.session');
 route::get('/stockIn/{id}',[AdminDashboardController::class,'stockIn'])->middleware('admin.session');
 route::get('/stockOut/{id}',[AdminDashboardController::class,'stockOut'])->middleware('admin.session');
 route::get('/supplier',[AdminDashboardController::class,'supplier'])->middleware('admin.session')->name('admin.pages.product.supplier.supplier');

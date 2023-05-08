@@ -21,28 +21,45 @@
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Description</th>
+                                    <th>Image</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
-                               
+                               @foreach($products as $product)
                                     <tr>
-                                        <td>{{$productDetail->p_code}}</td>
-                                        <td>{{$productDetail->p_name}}</td>
-                                        <td>{{$productDetail->p_category}}</td>
-                                        <td>{{$productDetail->p_description}}</td>
-                                        <td>{{$productDetail->p_quantity}}</td>
-                                        <td>₱ {{$productDetail->p_mprice}}</td>
-                                        <td><a href="{{url('/stockIn',$productDetail->p_id)}}">Stock-In</a> | <a
-                                                href="{{url('/stockOut',$productDetail->p_id)}}">Stock-Out</a> </td>
+                                        <td>{{$product->p_code}}</td>
+                                        <td>{{$product->p_name}}</td>
+                                        <td>{{$product->p_category}}</td>
+                                        <td>{{$product->p_description}}</td>
+                                        <td><img src="{{$product->p_image}}" alt="" class="img img-fluid" data-toggle="modal" data-target="#productImageModal{{$product->p_id}}"></td>
+                                        <td>{{$product->p_quantity}}</td>
+                                        <td>₱ {{$product->p_mprice}}</td>
+                                        <td><a href="{{url('/stockIn',$product->p_id)}}">Stock-In</a> | <a
+                                                href="{{url('/stockOut',$product->p_id)}}">Stock-Out</a> </td>
                                     </tr>
-                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                @foreach($products as $product)
+                    <div class="modal fade" id="productImageModal{{$product->p_id}}" tabindex="-1" role="dialog" aria-labelledby="productImageModalLabel{{$product->p_id}}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <img src="{{$product->p_image}}" alt="" class="img img-fluid">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
                 <div class="footer">
             <div id="pagination">
                         <?php 

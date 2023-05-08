@@ -71,11 +71,11 @@ class AdminDashboardController extends Controller
         $category = category::all();
         return view('admin.pages.product.stock.stockAdd',compact('category'));
     }
-    public function stockManage($id,Request $request){
-        $productDetail = DB::table('product')->where('p_id', $id)->first();
+    public function stockManage(Request $request){
+        $products = DB::table('product')->get();
         $productPage = DB::table('product')->paginate(5);
         $page = $request->input('page') ?: 1;
-        return view('admin.pages.product.stock.stockManage',compact('productDetail','page'));
+        return view('admin.pages.product.stock.stockManage',compact('products','page'));
     }
     public function stockIn($id){
         $productDetail = DB::table('product')->where('p_id', $id)->first();
@@ -251,28 +251,45 @@ class AdminDashboardController extends Controller
         $category = $request->input('category');
         $description = $request->input('description');
         
-        $count = DB::table('product')->where('p_code', '=', $code)->count();
-        if($count > 0) {
-            return redirect()->back()->with('error', 'The Product ID already exists!'); 
+        // Check if an image file is uploaded
+        if ($request->hasFile('image')) {
+            // Get the file from the request
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            
+            // Store the file in the public folder
+            $image->move(public_path('uploads'), $imageName);
+            
+            $count = DB::table('product')->where('p_code', '=', $code)->count();
+            if($count > 0) {
+                return redirect()->back()->with('error', 'The Product ID already exists!'); 
+            }
+            else {
+                DB::table('product')->insert(
+                    [
+                        'p_code' => $code, 
+                        'p_name' => $name, 
+                        'p_category' => $category, 
+                        'p_description' => $description,
+                        'p_image' => asset('uploads/'.$imageName), // Store the image URL in the database
+                        'p_value' => 0,
+                        'p_mprice' => 0,
+                        'p_newvalue' => 0,
+                        'p_quantity' => 0,
+                        'p_supname' => 0,
+                        'p_date' => date('Y-m-d')
+                    ]
+                );
+                return redirect()->route('admin.pages.product.stock')->with('success', 'Product Added successfully!');
+            }
         }
         else {
-            DB::table('product')->insert(
-                [
-                    'p_code' => $code, 
-                    'p_name' => $name, 
-                    'p_category' => $category, 
-                    'p_description' => $description,
-                    'p_value' => 0,
-                    'p_mprice' => 0,
-                    'p_newvalue' => 0,
-                    'p_quantity' => 0,
-                    'p_supname' => 0,
-                    'p_date' => date('Y-m-d')
-                ]
-            );
-            return redirect()->route('admin.pages.product.stock')->with('success', 'Product Added successfully!');
+            // If no image is uploaded, you can handle the error or validation here
+            return redirect()->back()->with('error', 'Please upload an image file');
         }
-     }
+    }
+    
+    
      public function productCalculation(Request $request){
         $id = $request->input('id');
         $code = $request->input('code');

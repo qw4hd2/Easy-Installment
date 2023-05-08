@@ -18,10 +18,8 @@ Swal.fire({
                         <h4 class="card-title ">Stock Management</h4>
                         <a href="{{url('/stockAdd')}}"><button type="button" class="btn btn-primary "
                                 style="font-size: 12px;">Register Stock</button></a>
-                                @foreach($products as $product)
-                                <a href="{{url('/stockManage',$product->p_id)}}"><button type="button" class="btn btn-success "
+                                <a href="{{url('/stockManage')}}"><button type="button" class="btn btn-success "
                                         style="font-size: 12px;">Manage Stock ( In/Out )</button></a>
-                                @endforeach
                         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search ..."
                             style="float: right; width: 20%; padding: 5px">
 
@@ -35,6 +33,7 @@ Swal.fire({
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Description</th>
+                                    <th>Image</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Action</th>
@@ -46,6 +45,7 @@ Swal.fire({
                                         <td>{{$product->p_name}}</td>
                                         <td>{{$product->p_category}}</td>
                                         <td>{{$product->p_description}}</td>
+                                        <td><img src="{{$product->p_image}}" alt="" class="img img-fluid" data-toggle="modal" data-target="#productImageModal{{$product->p_id}}"></td>
                                         <td>{{$product->p_quantity}}</td>
                                         <td>₱ {{$product->p_mprice}}</td>
                                         <td><a href="{{ url('/stockEdit', $product->p_id) }}">Edit</a> | <form action="{{ url('/stockDelete', $product->p_id) }}" method="POST" class="delete-form" style="display: inline">
@@ -64,6 +64,20 @@ Swal.fire({
                 </div>
             </div>
         </div>
+        @foreach($products as $product)
+            <div class="modal fade" id="productImageModal{{$product->p_id}}" tabindex="-1" role="dialog" aria-labelledby="productImageModalLabel{{$product->p_id}}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="{{$product->p_image}}" alt="" class="img img-fluid">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
 
 
         <div class="footer">

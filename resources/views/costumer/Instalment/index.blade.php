@@ -34,7 +34,7 @@ Swal.fire({
                                     <th>Year</th>
                                     <th>Total Down</th>
                                     <th>Date</th>
-                                    <th>Action</th>
+                                    <th>Status</th>
                                 </thead>
                                 <tbody>
                                 @foreach ($totalInstalments as $item)
@@ -49,7 +49,8 @@ Swal.fire({
                                         <td>{{$item->i_year}}Yr/s</td>
                                         <td>₱ {{$item->i_dpp}}</td>
                                         <td>{{$item->i_date}}</td>
-                                        <td><a href="{{url('/paymentCostumer',$item->i_id)}}">Show</a> | <form action="{{ url('/instalmentDeleteHandlerCostumer', $item->i_id) }}" method="POST" class="delete-form" style="display: inline">
+                                        <td><span class="{{ $item->i_mp == 0 ? 'badge-success' : 'badge-danger' }}">{{ $item->i_mp == 0 ? 'completed' : 'pending' }}</span>
+                                                | <form action="{{ url('/instalmentDeleteHandlerCostumer', $item->i_id) }}" method="POST" class="delete-form" style="display: inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="deleteButton">Delete</button>
