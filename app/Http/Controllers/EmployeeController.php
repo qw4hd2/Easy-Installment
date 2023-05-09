@@ -7,6 +7,7 @@ use App\Models\showCount;
 use App\Models\instalmentModel;
 use App\Models\requestModel;
 use App\Models\fetchData;
+use App\Models\productRequestModel;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
@@ -268,11 +269,21 @@ class EmployeeController extends Controller
                     'r_status' => $status
                 ]);
             });
-            return redirect()->route('admin.pages.Instalment.Instalment.request')->with('success', 'request Deleted Successfully!');
+            return redirect()->route('employee.instalment.instalment')->with('success', 'request Deleted Successfully!');
         }
     }
     public function logoutEmployee(){
         session()->forget('id');
         return redirect('/employee')->with('success', 'You have been logged out.');
     }
+    public function blogIndexEmployee(){
+        $requestProduct = productRequestModel::all();
+        return view('employee.blog.index',compact('requestProduct'));
+    }
+    public function deleteProductBlogEmployee($id){
+        $requestProduct = productRequestModel::find($id);
+        $requestProduct->delete();
+        return redirect()->back()->with('success', 'Product deleted successfully.');
+    }
 }
+

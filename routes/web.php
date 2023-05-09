@@ -96,6 +96,14 @@ route::post('/instalmentEditHandleCostumer',[CostumerController::class,'instalme
 route::delete('/instalmentDeleteHandlerCostumer/{id}',[CostumerController::class,'instalmentDeleteHandlerCostumer'])->middleware('costumer.session');
 route::post('/requestSaveHandlerCostumer',[CostumerController::class,'requestSaveHandlerCostumer'])->middleware('costumer.session');
 route::post('/logoutCostumer',[CostumerController::class,'logoutCostumer'])->middleware('costumer.session')->name('logoutCostumer');
+route::get('/blogFormCostumer',[CostumerController::class,'blogFormCostumer'])->middleware('costumer.session')->name('costumer.blog.requestProduct');
+route::post('/productSave',[CostumerController::class,'productSave'])->middleware('costumer.session');
+route::get('/producttable',[CostumerController::class,'productTable'])->middleware('costumer.session');
+route::delete('/deleteProductBlog/{id}',[CostumerController::class,'deleteProductBlog'])->middleware('costumer.session');
+route::get('/blogIndex',[AdminDashboardController::class,'blogIndex'])->middleware('admin.session')->name('blogIndex');
+route::delete('/deleteProductBlogAdmin/{id}',[AdminDashboardController::class,'deleteProductBlogAdmin'])->middleware('admin.session');
+route::get('/blogIndexEmployee',[EmployeeController::class,'blogIndexEmployee'])->middleware('employee.session');
+route::delete('/deleteProductBlogEmployee/{id}',[EmployeeController::class,'deleteProductBlogEmployee'])->middleware('employee.session');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

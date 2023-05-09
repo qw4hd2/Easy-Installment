@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\instalmentModel;
+use App\Models\productRequestModel;
 class costumerController extends Controller
 {
     //
@@ -133,6 +134,7 @@ class costumerController extends Controller
         $deleteInstalment->delete();
         return redirect()->route('costumer.instalment.index')->with('success', 'Payment successfully recorded!');
     }
+    
     public function requestSaveHandlerCostumer()
     {
         $transacid = $request->transacid;
@@ -175,11 +177,47 @@ class costumerController extends Controller
                     'r_status' => $status
                 ]);
             });
-            return redirect()->route('admin.pages.Instalment.Instalment.request')->with('success', 'request Deleted Successfully!');
+            return redirect()->route('costumer.instalment.index')->with('success', 'request Deleted Successfully!');
         }
     }
     public function logoutCostumer(){
         session()->forget('id');
         return redirect('/costumerLogin')->with('success', 'You have been logged out.');
+    }
+    public function blogFormCostumer(){
+        $requestProduct = productRequestModel::all();
+        return view('costumer.blog.requestProduct',compact('requestProduct'));
+    }
+    public function productTable(){
+        return view('costumer.blog.ProductRequestForm');
+    }
+    public function deleteProductBlog($id){
+        $deleteit = ProductRequestModel::find($id);
+        $deleteit->delete();
+        return redirect()->back()->with('success', 'Product Request has been deleted successfully');
+    }
+    public function productSave(Request $request){
+        if(request()->isMethod('POST')){
+            $productname=$request->input('productname');
+            $companyname=$request->input('companyname');
+            $quantity=$request->input('quantity');
+            $selectionPlan = $request->input('selectionPlan');
+            $description = $request->input('description');
+        }
+        try{
+            DB::beginTransaction();
+            DB::table('requestproduct')->insert([
+                'productname'=>$productname,
+                'companyname'=>$companyname,
+                'quantity'=>$quantity,
+                'selectionPlan'=>$selectionPlan,
+                'description'=>$description
+            ]);
+            DB::commit();
+            return redirect()->route('costumer.blog.requestProduct')->with('success','Request For a product has submotted..');
+        }catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('error', 'Failed to update stock!');
+        }
     }
 }

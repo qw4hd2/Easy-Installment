@@ -47,7 +47,7 @@ Swal.fire({
                                         <td>{{$product->p_description}}</td>
                                         <td><img src="{{$product->p_image}}" alt="" class="img img-fluid" data-toggle="modal" data-target="#productImageModal{{$product->p_id}}"></td>
                                         <td>{{$product->p_quantity}}</td>
-                                        <td>₱ {{$product->p_mprice}}</td>
+                                        <td>Rs {{$product->p_mprice}}</td>
                                         <td><a href="{{ url('/stockEdit', $product->p_id) }}">Edit</a> | <form action="{{ url('/stockDelete', $product->p_id) }}" method="POST" class="delete-form" style="display: inline">
                                             @csrf
                                             @method('DELETE')

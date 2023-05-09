@@ -43,11 +43,11 @@ Swal.fire({
                                         <td>{{$item->i_productid}}</td>
                                         <td>{{$item->i_costumerid}}</td>
                                         <td>{{$item->i_order}} Pc/s</td>
-                                        <td>₱ {{$item->i_value}}</td>
-                                        <td>₱ {{$item->i_balance}}</td>
-                                        <td>₱ {{$item->i_mp}}</td>
+                                        <td>Rs {{$item->i_value}}</td>
+                                        <td>Rs {{$item->i_balance}}</td>
+                                        <td>Rs {{$item->i_mp}}</td>
                                         <td>{{$item->i_year}}Yr/s</td>
-                                        <td>₱ {{$item->i_dpp}}</td>
+                                        <td>Rs {{$item->i_dpp}}</td>
                                         <td>{{$item->i_date}}</td>
                                         <td><span class="{{ $item->i_mp == 0 ? 'badge-success' : 'badge-danger' }}">{{ $item->i_mp == 0 ? 'completed' : 'pending' }}</span>
                                                 | <form action="{{ url('/instalmentDeleteHandlerCostumer', $item->i_id) }}" method="POST" class="delete-form" style="display: inline">

@@ -142,7 +142,16 @@
                 </li> -->
                         </ul>
                     </li>
-
+                    <li>
+                        <a href="#requestProduct" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                                class="fa fa-inbox mr-3"></span>Request For product</a>
+                        <ul class="collapse list-unstyled" id="requestProduct">
+                            <li>
+                                <a href="{{url('/blogIndex')}}"><span
+                                        class="fa fa-caret-right mr-3"></span>Product Request</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="#settSubmenu" data-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle"><span class="fa fa-cog mr-3"></span>Setting</a>
@@ -162,6 +171,7 @@
 
                         </ul>
                     </li>
+                  
 
 
                 </ul>

@@ -13,6 +13,7 @@ use App\Models\requestModel;
 use App\Models\stockModel;
 use App\Models\paymentModel;
 use App\Models\userModel;
+use App\Models\productRequestModel;
 use Illuminate\Support\Facades\DB;
 class AdminDashboardController extends Controller
 {
@@ -748,6 +749,15 @@ class AdminDashboardController extends Controller
     public function printIt($id){
         $selectPayment = paymentModel::find($id);
         return view('admin.pages.report.print',compact('id','selectPayment'));
+    }
+    public function blogIndex(){
+        $requestProduct = productRequestModel::all();
+        return view('admin.pages.blog.index',compact('requestProduct'));
+    }
+    public function deleteProductBlogAdmin($id){
+        $delete = productRequestModel::find($id);
+        $delete->delete();
+        return redirect()->back()->with('success', 'Product deleted successfully!');
     }
     
 }

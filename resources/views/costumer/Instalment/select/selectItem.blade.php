@@ -41,7 +41,7 @@ Swal.fire({
                                         <td>{{$product->p_description}}</td>
                                         <td><img src="{{$product->p_image}}" alt="" class="img img-fluid" data-toggle="modal" data-target="#productImageModal{{$product->p_id}}"></td>
                                         <td>{{$product->p_quantity}}</td>
-                                        <td>₱ {{$product->p_mprice}}</td>
+                                        <td>Rs {{$product->p_mprice}}</td>
                                         <td><a href="{{url('/requestFormCostumer',$product->p_id)}}" >Select</a>  </td>
                                     </tr>
                                     @endforeach
